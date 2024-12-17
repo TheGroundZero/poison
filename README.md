@@ -1,3 +1,8 @@
+> [!CAUTION]
+> This is a fork of https://github.com/lukeorth/poison with personal modifications
+> These modifications are purely to fit my needs and may not be backwards compatible with upstream
+> The README below has not been updated since the fork
+
 # Poison
 
 ![Poison screenshot](https://raw.githubusercontent.com/lukeorth/poison/master/images/screenshot.png)
