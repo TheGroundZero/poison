@@ -5,7 +5,7 @@
 <div class="headline">
   <div>
     {{ with .Params.author }}
-      <span class="p-author">
+      <span class="h-card p-author">
         {{ with site.Taxonomies.author.Get . }}
           <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> - </span>
         {{ else }}
