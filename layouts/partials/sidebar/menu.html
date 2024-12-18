@@ -33,13 +33,13 @@
             {{ range $name, $taxonomy := $taxonomies }}
                 {{ if eq (lower $name) (lower $menu_item.name) }}
                     <li class="heading">
-                        <a href="{{$menu_item.URL }}">{{ $menu_item.name }}</a>
+                        <a href="{{$menu_item.url }}">{{ $menu_item.name }}</a>
                     </li>
                 {{ end }}
                 {{ range $term, $page := $taxonomy }}
                         {{ if eq (lower $term) (lower $menu_item.name) }}
                             <li class="heading">
-                                <a href="{{$menu_item.URL }}">{{ $menu_item.name }}</a>
+                                <a href="{{$menu_item.url }}">{{ $menu_item.name }}</a>
                             </li>
                             {{ if $menu_item.haschildren }}
                             <li class="sub-heading">
