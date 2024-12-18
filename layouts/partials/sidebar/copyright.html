@@ -1,5 +1,5 @@
 <p class="footnote">
     &copy; {{ .Site.Params.copyright.year }} 
     • <a class="p-name u-url" href="{{ .Site.Params.author.url }}">{{ .Site.Params.author.name }}</a> 
-    • {{ .Site.Params.copyright.copyright }}
+    • {{ .Site.Params.copyright.copyright | safeHTML }}
 </p>
