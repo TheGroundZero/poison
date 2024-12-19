@@ -3,10 +3,9 @@ title: "{{ replace .Name "-" " " | title }}"
 description: ""
 date: {{ .Date }}
 lastmod: {{ .Date }}
-tags:
-  - ChangeMe
-categories:
-  - ChangeMe
+tags: []
+categories: []
+series: ""
 menu: main
 toc: true
 draft: true
