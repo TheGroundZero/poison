@@ -7,7 +7,7 @@
     {{ with .Params.author }}
       <span class="h-card p-author">
         {{ with site.Taxonomies.author.Get . }}
-          <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> - </span>
+          <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a></span>
         {{ else }}
           {{ . }}
         {{ end }}
