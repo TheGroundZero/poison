@@ -5,10 +5,11 @@
   "transpiler"  "dartsass"
   "vars"        (partialCached "head/get-scss-vars.html" .)
 }}
-{{ $vars := (resources.Get "scss/main.scss" | toCSS $opts).RelPermalink }}
+{{ with resources.Get "scss/main.scss" | toCSS $opts }}
+  {{ $bundle = $bundle | append (slice "{{ .RelPermalink }}") }}
+{{ end }}
 
 {{ $bundle = $bundle | append (slice
-    (resources.Get $vars)
     (resources.Get "css/poole.css")
     (resources.Get "css/codeblock.css")
     (resources.Get "css/hyde.css")
