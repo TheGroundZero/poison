@@ -7,7 +7,7 @@
     "vars"        (partialCached "head/get-scss-vars.html" .)
   }}
   {{ with . | toCSS $opts }}
-    {{ $bundle = $bundle | append slice "{{ .RelPermalink }}" }}
+    {{ $bundle = $bundle | append (slice "{{ .RelPermalink }}") }}
   {{ end }}
 {{ end }}
 
