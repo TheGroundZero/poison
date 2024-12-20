@@ -1,19 +1,14 @@
 {{ $bundle := slice }}
 
-{{ with resources.Get "scss/main.scss" }}
-  {{ $opts := dict
-    "targetPath"  "css/vars.css"
-    "transpiler"  "dartsass"
-    "vars"        (partialCached "head/get-scss-vars.html" .)
-  }}
-  {{ with . | toCSS $opts }}
-  {{ $stylesheet := . }}
-    <link type="text/css" rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-    {{ $bundle = $bundle | append (slice (resources.Get $stylesheet)) }}
-  {{ end }}
-{{ end }}
+{{ $opts := dict
+  "targetPath"  "css/vars.css"
+  "transpiler"  "dartsass"
+  "vars"        (partialCached "head/get-scss-vars.html" .)
+}}
+{{ $vars := (resources.Get "scss/main.scss" | toCSS $opts).RelPermalink }}
 
 {{ $bundle = $bundle | append (slice
+    (resources.Get $vars)
     (resources.Get "css/poole.css")
     (resources.Get "css/codeblock.css")
     (resources.Get "css/hyde.css")
