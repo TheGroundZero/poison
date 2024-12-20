@@ -1,3 +1,7 @@
+body {
+    background-color: var(--bkg-color);
+}
+
 body.layout-reverse .container.content {
    direction: rtl;
 }

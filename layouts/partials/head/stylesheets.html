@@ -1,4 +1,11 @@
+{{ $opts := dict
+  "targetPath"  "css/vars.css"
+  "transpiler"  "dartsass"
+  "vars"        (partialCached "head/get-scss-vars.html" .)
+}}
+
 {{ $css_bundle := slice
+    (resources.Get (resources.Get "scss/main.scss" | toCSS $opts).RelPermalink)
     (resources.Get "css/poole.css")
     (resources.Get "css/codeblock.css")
     (resources.Get "css/hyde.css")
