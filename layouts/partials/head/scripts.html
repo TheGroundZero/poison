@@ -21,4 +21,4 @@
 
 {{ $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint }}
 
-<script defer language="javascript" type="text/javascript" src="{{ $js_bundle.RelPermalink }}"></script>
+<script defer type="text/javascript" src="{{ $js_bundle.RelPermalink }}" integrity="{{ $js_bundle.Data.Integrity }}"  crossorigin="anonymous"></script>
