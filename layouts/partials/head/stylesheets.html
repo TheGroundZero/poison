@@ -7,7 +7,9 @@
     "vars"        (partialCached "head/get-scss-vars.html" .)
   }}
   {{ with . | toCSS $opts }}
-    {{ $bundle = $bundle | append (slice (resources.Get "{{ .RelPermalink }}")) }}
+  {{ $stylesheet := . }}
+    <link type="text/css" rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{ $bundle = $bundle | append (slice (resources.Get $stylesheet)) }}
   {{ end }}
 {{ end }}
 
