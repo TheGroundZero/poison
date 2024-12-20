@@ -7,11 +7,11 @@
     "vars"        (partialCached "head/get-scss-vars.html" .)
   }}
   {{ with . | toCSS $opts }}
-    {{ $bundle = $bundle | append (slice "{{ .RelPermalink }}") }}
+    {{ $bundle = $bundle | append (slice (resources.Get "{{ .RelPermalink }}")) }}
   {{ end }}
 {{ end }}
 
-{{ $bundle | append slice
+{{ $bundle = $bundle | append (slice
     (resources.Get "css/poole.css")
     (resources.Get "css/codeblock.css")
     (resources.Get "css/hyde.css")
@@ -20,6 +20,7 @@
     (resources.Get "css/lib/katex.css")
     (resources.Get "css/tabs.css")
     (resources.Get "css/custom.css")
+  )
 }}
 
 {{ $css_bundle := $bundle | resources.Concat "css/bundle.css" | minify | fingerprint }}
