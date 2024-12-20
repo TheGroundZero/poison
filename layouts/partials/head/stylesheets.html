@@ -4,8 +4,10 @@
   "vars"        (partialCached "head/get-scss-vars.html" .)
 }}
 
+{{ $vars-css := ((resources.Get "scss/main.scss") | toCSS $opts) }}
+
 {{ $css_bundle := slice
-    (resources.Get (resources.Get "scss/main.scss" | toCSS $opts).RelPermalink)
+    (resources.Get $vars-css.RelPermalink)
     (resources.Get "css/poole.css")
     (resources.Get "css/codeblock.css")
     (resources.Get "css/hyde.css")
