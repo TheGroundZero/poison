@@ -1,26 +1,16 @@
-{{ $bundle := slice }}
-
-{{ $opts := dict
-  "targetPath"  "css/vars.css"
-  "transpiler"  "dartsass"
-  "vars"        (partialCached "head/get-scss-vars.html" .)
-}}
-{{ with resources.Get "scss/main.scss" | toCSS $opts }}
-  {{ $bundle = $bundle | append (slice "{{ .RelPermalink }}") }}
+{{ with resources.Get "sass/main.scss" }}
+  {{ $opts := dict
+    "transpiler" "dartsass"
+  }}
+  {{ with . | toCSS $opts }}
+    {{ with slice . | append (resources.Match "css/**") | resources.Concat "css/styles.css" }}
+      {{ if hugo.IsProduction }}
+        {{ with . | minify | fingerprint }}
+          <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{ end }}
+      {{ else }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+      {{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
-
-{{ $bundle = $bundle | append (slice
-    (resources.Get "css/poole.css")
-    (resources.Get "css/codeblock.css")
-    (resources.Get "css/hyde.css")
-    (resources.Get "css/poison.css")
-    (resources.Get "css/fonts.css")
-    (resources.Get "css/lib/katex.css")
-    (resources.Get "css/tabs.css")
-    (resources.Get "css/custom.css")
-  )
-}}
-
-{{ $css_bundle := $bundle | resources.Concat "css/bundle.css" | minify | fingerprint }}
-
-<link type="text/css" rel="stylesheet" href="{{ $css_bundle.RelPermalink }}" integrity="{{ $css_bundle.Data.Integrity }}" crossorigin="anonymous">
