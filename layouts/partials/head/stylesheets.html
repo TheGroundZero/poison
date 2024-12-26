@@ -1,8 +1,10 @@
+{{ $opts := dict
+  "targetPath" "css/style.css"
+  "transpiler" "dartsass"
+  "vars" (partialCached "get-scss-vars.html" .)
+}}
+
 {{ with resources.Get "scss/main.scss" }}
-  {{ $opts := dict
-    "transpiler" "dartsass"
-    "vars" (partialCached "head/get-scss-vars.html" $)
-  }}
   {{ with . | toCSS $opts }}
     {{ with slice . | append (resources.Match "css/*") | resources.Concat "css/bundle.css" }}
       {{ if hugo.IsProduction }}
