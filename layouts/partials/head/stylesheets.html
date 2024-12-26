@@ -1,7 +1,7 @@
-{{ with resources.Get "sass/main.scss" }}
+{{ with resources.Get "scss/main.scss" }}
   {{ $opts := dict
     "transpiler" "dartsass"
-    "vars" (partialCached "head/get-scss-vars.html" .)
+    "vars" (partialCached "head/get-scss-vars.html" $)
   }}
   {{ with . | toCSS $opts }}
     {{ with slice . | append (resources.Match "css/*") | resources.Concat "css/styles.css" }}
