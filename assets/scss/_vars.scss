@@ -21,6 +21,8 @@ body {
     --code-block-background-color: h.$code_block_background_color;
     --moon-sun-color: h.$moon_sun_color;
     --moon-sun-background-color: h.$moon_sun_background_color;
+
+    background-color: h.$content_bg_color;
 };
 body.dark-theme {
     --text-color: h.$text_color_dark;
@@ -35,7 +37,6 @@ body.dark-theme {
     --code-background-color: h.$code_background_color_dark;
     --code-block-color: h.$code_block_color_dark;
     --code-block-background-color: h.$code_block_background_color_dark;
-};
-body {
-    background-color: var(--bkg-color);
+
+    background-color: h.$content_bg_color_dark;
 };
