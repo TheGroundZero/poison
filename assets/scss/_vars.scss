@@ -1,42 +1,42 @@
 @use "hugo:vars" as h;
 
 body {
-    --sidebar-bg-color: h.$sidebar_bg_color;
-    --sidebar-img-border-color: h.$sidebar_img_border_color;
-    --sidebar-p-color: h.$sidebar_p_color;
-    --sidebar-h1-color: h.$sidebar_h1_color;
-    --sidebar-a-color: h.$sidebar_a_color;
-    --sidebar-socials-color: h.$sidebar_socials_color;
-    --text-color: h.$text_color;
-    --bkg-color: h.$content_bg_color;
-    --post-title-color: h.$post_title_color;
-    --list-color: h.$list_color;
-    --link-color: h.$link_color;
-    --date-color: h.$date_color;
-    --table-border-color: h.$table_border_color;
-    --table-stripe-color: h.$table_stripe_color;
-    --code-color: h.$code_color;
-    --code-background-color: h.$code_background_color;
-    --code-block-color: h.$code_block_color;
-    --code-block-background-color: h.$code_block_background_color;
-    --moon-sun-color: h.$moon_sun_color;
-    --moon-sun-background-color: h.$moon_sun_background_color;
-
-    background-color: h.$content_bg_color;
+    --sidebar-bg-color: #{h.$sidebar_bg_color};
+    --sidebar-img-border-color: #{h.$sidebar_img_border_color};
+    --sidebar-p-color: #{h.$sidebar_p_color};
+    --sidebar-h1-color: #{h.$sidebar_h1_color};
+    --sidebar-a-color: #{h.$sidebar_a_color};
+    --sidebar-socials-color: #{h.$sidebar_socials_color};
+    --text-color: #{h.$text_color};
+    --bkg-color: #{h.$content_bg_color};
+    --post-title-color: #{h.$post_title_color};
+    --list-color: #{h.$list_color};
+    --link-color: #{h.$link_color};
+    --date-color: #{h.$date_color};
+    --table-border-color: #{h.$table_border_color};
+    --table-stripe-color: #{h.$table_stripe_color};
+    --code-color: #{h.$code_color};
+    --code-background-color: #{h.$code_background_color};
+    --code-block-color: #{h.$code_block_color};
+    --code-block-background-color: #{h.$code_block_background_color};
+    --moon-sun-color: #{h.$moon_sun_color};
+    --moon-sun-background-color: #{h.$moon_sun_background_color};
 };
 body.dark-theme {
-    --text-color: h.$text_color_dark;
-    --bkg-color: h.$content_bg_color_dark;
-    --post-title-color: h.$post_title_color_dark;
-    --list-color: h.$list_color_dark;
-    --link-color: h.$link_color_dark;
-    --date-color: h.$date_color_dark;
-    --table-border-color: h.$table_border_color_dark;
-    --table-stripe-color: h.$table_stripe_color_dark;
-    --code-color: h.$code_color_dark;
-    --code-background-color: h.$code_background_color_dark;
-    --code-block-color: h.$code_block_color_dark;
-    --code-block-background-color: h.$code_block_background_color_dark;
-
-    background-color: h.$content_bg_color_dark;
+    --text-color: #{h.$text_color_dark};
+    --bkg-color: #{h.$content_bg_color_dark};
+    --post-title-color: #{h.$post_title_color_dark};
+    --list-color: #{h.$list_color_dark};
+    --link-color: #{h.$link_color_dark};
+    --date-color: #{h.$date_color_dark};
+    --table-border-color: #{h.$table_border_color_dark};
+    --table-stripe-color: #{h.$table_stripe_color_dark};
+    --code-color: #{h.$code_color_dark};
+    --code-background-color: #{h.$code_background_color_dark};
+    --code-block-color: #{h.$code_block_color_dark};
+    --code-block-background-color: #{h.$code_block_background_color_dark};
 };
+
+body {
+    background-color: var(--bkg-color);
+}
