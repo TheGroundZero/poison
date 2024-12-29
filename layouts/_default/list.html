@@ -2,17 +2,22 @@
 <h1 class="title">{{ .Title }}</h1>
 <ul class="entries">
     {{ range .Pages.GroupByDate "2006" }}
-        <h3 style="text-align: center;">{{ .Key }}</h3>
+        <h2 style="text-align: center;">{{ .Key }}</h2>
         {{ range .Pages }}
             <li>
                 <span class="title">
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                 </span>
                 <span class="published">
-                    <time class="pull-right post-list">{{ .Date | time.Format ":date_long" }}</time>
+                    <time class="pull-right post-list">{{ or .PublishDate .Date | time.Format "January _2" }}</time>
                 </span>
             </li>
         {{ end }}
     {{ end }}
 </ul>
+{{ end }}
+{{ define "sidebar" }}
+  {{ if and (not .Params.hideToc) (not .Site.Params.hideToc) }}
+    {{ partial "table_of_contents.html" . }}
+  {{ end }}
 {{ end }}
