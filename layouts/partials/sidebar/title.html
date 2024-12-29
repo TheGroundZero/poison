@@ -2,11 +2,11 @@
     <h1 class="brand">
         {{ if .Site.Params.remote_brand_image }}
             <a href="{{ .Site.BaseURL }}">
-                <img src="{{ .Site.Params.remote_brand_image }}" class="u-logo" alt="{{ with .Site.Params.brand }}{{ . }} {{ end }}brand image">
+                <img src="{{ .Site.Params.remote_brand_image }}" class="u-logo u-photo" alt="{{ with .Site.Params.brand }}{{ . }} {{ end }}brand image">
             </a>
         {{ else if .Site.Params.brand_image }}
             <a href="{{ .Site.BaseURL }}">
-                <img src="{{ .Site.Params.brand_image }}" class="u-logo" alt="{{ with .Site.Params.brand }}{{ . }} {{ end }}brand image">
+                <img src="{{ .Site.Params.brand_image }}" class="u-logo u-photo" alt="{{ with .Site.Params.brand }}{{ . }} {{ end }}brand image">
             </a>
         {{ end }}
         {{ if .Site.Params.brand }}
