@@ -12,6 +12,6 @@
 
 {{- with .Site.Params.social -}}
     {{- range . -}}
-        <a href="{{ .url }}" target="_blank" class="u-url social" rel="external noopener {{ .rel }}" title="{{ .name | humanize }}">{{ partialCached "sidebar/svg.html" . }}</a>
+        <a href="{{ .url }}" target="_blank" class="u-url social" rel="external noopener {{ .rel }}" title="{{ .name | humanize }}">{{ partialCached "sidebar/svg.html" . .name }}</a>
     {{- end -}}
 {{- end -}}
