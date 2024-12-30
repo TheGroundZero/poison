@@ -1,4 +1,4 @@
-{{ if .Site.Params.rss_icon }}
+{{- if .Site.Params.rss_icon }}
     <a target="_blank" class="social" title="RSS Feed" href="/{{ if .Site.Params.rss_section }}{{ .Site.Params.rss_section }}/{{ end }}index.xml">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 1280.000000 1280.000000">
             <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="currentColor">
@@ -8,10 +8,10 @@
             </g>
         </svg>
     </a>
-{{ end }}
+{{ end -}}
 
-{{ with .Site.Params.social -}}
-    {{ range . -}}
-        <a href="{{ .url }}" target="_blank" class="u-url social" rel="external noopener {{ .rel }}" title="{{ .name | humanize }}">{{ partial "sidebar/svg.html" . }}</a>
+{{- with .Site.Params.social -}}
+    {{- range . -}}
+        <a href="{{ .url }}" target="_blank" class="u-url social" rel="external noopener {{ .rel }}" title="{{ .name | humanize }}">{{ partialCached "sidebar/svg.html" . }}</a>
     {{- end -}}
 {{- end -}}

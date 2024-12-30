@@ -1,9 +1,9 @@
 <aside class="sidebar h-card background-image">
     <div class="container sidebar-sticky">
-        {{ partial "light_dark.html" . }}
-        {{ partial "sidebar/title.html" . }}
-        {{ partial "sidebar/menu.html" . }}
-        {{ partial "sidebar/socials.html" . }}
-        {{ partial "sidebar/copyright.html" . }}
+        {{ partialCached "light_dark.html" . }}
+        {{ partialCached "sidebar/title.html" . }}
+        {{ partialCached "sidebar/menu.html" . }}
+        {{ partialCached "sidebar/socials.html" . }}
+        {{ partialCached "sidebar/copyright.html" . }}
   </div>
 </aside>

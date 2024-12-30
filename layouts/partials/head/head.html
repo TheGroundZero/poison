@@ -9,7 +9,7 @@
         {{ .Title }} :: {{ $.Site.Title }}
     {{- end -}}
     </title>
-    {{ partial "head/meta.html" . }}
-    {{ partial "head/stylesheets.html" . }}
-    {{ partial "head/scripts.html" . }}
+    {{ partialCached "head/meta.html" . }}
+    {{ partialCached "head/stylesheets.html" . }}
+    {{ partialCached "head/scripts.html" . }}
 </head>

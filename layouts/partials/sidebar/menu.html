@@ -1,7 +1,5 @@
 <nav>
     <ul class="sidebar-nav">
-        {{- $sections := .Site.Sections.ByTitle -}}
-        {{- $taxonomies := .Site.Taxonomies -}}
         {{- range .Site.Menus.main.ByWeight }}
             {{- $u := urls.Parse .URL -}}
             {{ if eq (len .URL) 0 }}

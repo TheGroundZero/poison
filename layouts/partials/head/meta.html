@@ -9,7 +9,7 @@
 <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
 <meta name="url" content="{{ .Permalink }}" />
 <!-- Icons -->
-{{ partial "head/favicon.html" . }}
+{{ partialCached "head/favicon.html" . .Site.Params.favicon }}
 <!-- Social media -->
 {{ template "_internal/schema.html" . }}
 {{ template "_internal/twitter_cards.html" . }}
