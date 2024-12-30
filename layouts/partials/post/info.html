@@ -13,10 +13,15 @@
         {{ end }}
       </span>
     {{ end }}
-    {{ if .Date }}
+    {{ with (or .Date .PublishDate) }}
     <span> • </span>
-    <time datetime="{{ .Date.Format " 2006-01-02T15:04:05Z0700" }}" class="post-date dt-published">
-      {{ .Date.Format "Jan 2, 2006" }}
+    <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-published">
+      {{ . | time.Format ":date_medium" }}
+    </time>
+    {{ end }}
+    {{ with (.Lastmod) }}
+    <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-updated">
+      ({{ . | time.Format ":date_medium" }})
     </time>
     {{ end }}
     <span> • </span>
@@ -25,9 +30,9 @@
     </span>
   </div>
 
-  {{ if .Params.tags }}
+  {{ with .Params.categories }}
   <ul class="tags">
-    {{ range .Params.tags }}
+    {{ range . }}
     <li class="tag-{{ . }}">
       <a class="p-category" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
     </li>
@@ -36,15 +41,14 @@
   {{ end }}
 </div>
 
-{{ $Site := .Site }}
-{{ if .Params.series }}
+{{ with .Params.series }}
   <p class="seriesname">
-    Series: <a class="p-category" href="{{ $Site.BaseURL }}series/{{ .Params.series | urlize }}">{{ .Params.series }}</a>
+    Series: <a class="p-category" href="{{ $.Site.BaseURL }}series/{{ . | urlize }}">{{ . }}</a>
   </p>
 {{ end }}
 
-{{ if .Params.featuredImage }}
+{{ with .Params.featuredImage }}
   <p>
-    <img class="u-photo" src="{{.Params.featuredImage}}"><br>
+    <img class="u-photo" src="{{ . }}"><br>
   </p>
 {{ end }}
