@@ -13,17 +13,20 @@
         {{ end }}
       </span>
     {{ end }}
-    {{ with (or .Date .PublishDate) }}
-    <span class="whitespace"> • </span>
-    <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-published">
-      {{ . | time.Format ":date_medium" }}
-    </time>
-    {{ end }}
-    {{ with (.Lastmod) }}
-    <span class="whitespace"> </span>
-    <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-updated">
-      ({{ . | time.Format ":date_medium" }})
-    </time>
+    {{ $pubdate := .PublishDate }}
+    {{ with .PublishDate }}
+      <span class="whitespace"> • </span>
+      <time datetime="{{ $pubdate | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-published">
+        {{ $pubdate | time.Format ":date_medium" }}
+      </time>
+      {{ with ($.Lastmod) }}
+        {{ if not (.Equal $pubdate) }}
+          <span class="whitespace"> </span>
+          <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-updated">
+            ({{ . | time.Format ":date_medium" }})
+          </time>
+        {{ end }}
+      {{ end }}
     {{ end }}
     <span class="whitespace"> • </span>
     <span class="reading-time">
@@ -35,7 +38,7 @@
   <ul class="tags">
     {{ range . }}
     <li class="tag-{{ . }}">
-      <a class="p-category" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
+      <a class="p-category" href="{{ "categories/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
     </li>
     {{ end }}
   </ul>
