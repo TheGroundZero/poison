@@ -9,7 +9,13 @@
         {{ .Title }} :: {{ $.Site.Title }}
     {{- end -}}
     </title>
+    <!-- Meta tags -->
     {{ partial "head/meta.html" . }}
+    <!-- Custom head tags -->
+    {{- if templates.Exists "partials/extra-head.html" -}}
+        {{ partial "extra-head.html" . }}
+    {{- end }}
+    <!-- Styling and scripts -->
     {{ partialCached "head/stylesheets.html" . }}
     {{ partialCached "head/scripts.html" . }}
 </head>
