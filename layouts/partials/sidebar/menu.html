@@ -1,35 +1,18 @@
 <nav>
     <ul class="sidebar-nav">
         {{- range .Site.Menus.main.ByWeight }}
-            {{- $u := urls.Parse .URL -}}
-            {{ if eq (len .URL) 0 }}
-                <li class="heading">{{ .Name }}</li>
-            {{ else if not $u.IsAbs}}
-                <li class="heading">
-                    <a href="{{ .URL }}" title="{{ or .Title .Name }}" {{- with .Params.rel }} rel="{{ . }}"{{ end -}}>
-                        {{- .Name -}}
-                    </a>
-                </li>
-            {{ else }}
-                <li class="bullet">
-                    <a href="{{ .URL }}" title="{{ or .Title .Name }}" target="_blank" rel="external noopener noreferrer {{- with .Params.rel }} {{ . }}{{ end -}}">
-                        {{- .Name -}}
-                    </a>
-                </li>
-            {{ end }}
-            {{ if .Params.haschildren }}
-            {{ $menu_item := . }}
-                <li class="sub-heading">
-                    {{- .Pre -}}
-                </li>
-                {{ with $.Site.GetPage .URL }}
-                    {{ range (first $menu_item.Params.limit .Pages) }}
-                        <li class="bullet">
-                            <a href="{{ .Permalink }}" title="{{ .Title }}">{{ .LinkTitle }}</a>
-                        </li>
-                    {{ end }}
+            {{ partial "sidebar/menulink.html" . }}
+            {{ if .HasChildren }}
+                {{ with .Pre }}
+                    <li class="sub-heading">
+                        {{ . }}
+                    </li>
+                {{ end }}
+                {{ range .Children }}
+                    {{ partial "sidebar/menulink.html" . }}
                 {{ end }}
             {{ end }}
+            </li>
         {{ end }}
     </ul>
 </nav>

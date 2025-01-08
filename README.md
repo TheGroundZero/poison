@@ -236,9 +236,10 @@ menus:
       pageRef: /blog/
       pre: Recent               # Subheading to show before children
       weight: 20
-      params:
-        haschildren: true       # Show list of recent children pages
-        limit: 5                # Limit children being displayed
+    - name: Post 1
+      pageRef: /blog/myfirstpost.md
+      weight: 1
+      parent: Blog              # Configure this link as a Child of the menu item with the name "Blog"
     - name: External links      # Don't add pageRef or URL for heading
       weight: 30
     - name: Example
