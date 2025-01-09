@@ -6,8 +6,12 @@
 <meta name="robots" content="{{ if .Params.noindex }}noindex, {{ end }}noodp, noydir" />
 <meta name="googlebot" content="{{ if .Params.noindex }}noindex, {{ end }}noodp, noydir" />
 <!-- Links -->
-<link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
-<meta name="url" content="{{ .Permalink }}" />
+<meta name="url" content="{{ .Permalink }}" itemprop="url" />
+{{ with .Translations }}
+  {{ range . }}
+    <link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Language.LanguageCode }}" />
+  {{ end }}
+{{ end }}
 <!-- Icons -->
 {{ partialCached "head/favicon.html" . .Site.Params.favicon }}
 <!-- Social media -->
@@ -16,7 +20,6 @@
 {{ template "_internal/opengraph.html" . }}
 <!-- Description Tags -->
 <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.Description }}{{ else }}{{ if .Params.Description }}{{ .Params.Description }}{{ else }}{{ .Summary | plainify }}{{ end }}{{ end }}" />
-<meta itemprop="description" content="{{ if .IsHome }}{{ .Site.Params.Description }}{{ else }}{{ if .Params.Description }}{{ .Params.Description }}{{ else }}{{ .Summary | plainify }}{{ end }}{{ end }}" />
 <!-- Date Tags -->
 <meta property="og:updated_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" />
 <!-- Sitemap & Alternate Outputs -->
@@ -25,11 +28,11 @@
     {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
 {{ end -}}
 <!-- Other Tags -->
-<meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}" />
+<meta name="apple-mobile-web-app-title" content="{{ .Title }}" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <!-- Article Specific Tags -->
-{{ if and (eq .Section "posts") (.Page.IsNode) }}
+{{ if and (eq .Section "blog") (.Page.IsNode) }}
   <!-- Pagination meta tags for list pages only -->
   {{ $paginator := .Paginate (where .Pages "Type" "posts") }}
   {{ if $paginator }}
