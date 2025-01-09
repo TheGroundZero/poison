@@ -12,7 +12,18 @@
                     {{ partial "sidebar/menulink.html" . }}
                 {{ end }}
             {{ end }}
-            </li>
+            {{ if .Params.section }}
+                {{ with .Pre }}
+                    <li class="sub-heading">
+                        {{ . }}
+                    </li>
+                {{ end }}
+                {{ range where (where $.Site.AllPages "Section" "==" .Params.section) "Kind" "==" "page" | first .Params.limit }}
+                    <li class="bullet">
+                        <a href="{{ .RelPermalink }}" title="{{ .Title }}" hreflang="{{ .Language.Lang }}">{{ .LinkTitle }}</a>
+                    </li>
+                {{ end }}
+            {{ end }}
         {{ end }}
     </ul>
 </nav>

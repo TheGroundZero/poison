@@ -1,16 +1,17 @@
 {{- $u := urls.Parse .URL -}}
-{{- $class := "heading" }}
-{{ if .Parent }}{{ $class = "bullet" }}{{ end }}
-{{ if eq (len .URL) 0 }}
-    <li class="{{ $class }}">{{ .Name }}
-{{ else if not $u.IsAbs}}
-    <li class="{{ $class }}">
-        <a href="{{ .URL }}" title="{{ or .Title .Name }}" {{- with .Params.rel }} rel="{{ . }}"{{ end -}}>
-            {{- .Name -}}
+{{- $class := "heading" -}}
+{{- if .Parent }}{{ $class = "bullet" }}{{ end -}}
+{{- $title := .Name -}}
+<li class="{{ $class }}">
+    {{ if eq (len .URL) 0 }}
+        {{- $title -}}
+    {{ else if not $u.IsAbs }}
+        <a href="{{ .URL }}" title="{{ or .Title $title }}" {{- with .Params.rel }} rel="{{ . }}"{{ end -}}>
+            {{- or $title -}}
         </a>
-{{ else }}
-    <li class="{{ $class }}">
-        <a href="{{ .URL }}" title="{{ or .Title .Name }}" target="_blank" rel="external noopener noreferrer {{- with .Params.rel }} {{ . }}{{ end -}}">
-            {{- .Name -}}
+    {{ else }}
+        <a href="{{ .URL }}" title="{{ or .Title $title }}" target="_blank" rel="external noopener noreferrer {{- with .Params.rel }} {{ . }}{{ end -}}">
+            {{- $title -}}
         </a>
-{{ end }}
+    {{ end }}
+</li>
