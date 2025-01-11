@@ -18,7 +18,15 @@
                         {{ . }}
                     </li>
                 {{ end }}
-                {{ range where (where $.Site.AllPages "Section" "==" .Params.section) "Kind" "==" "page" | first .Params.limit }}
+                {{ $s := .Params.section }}
+                {{/* Get pages from current site. */}}
+                {{ $p := where $.Site.RegularPages "Section" $s }}
+                {{/* Add pages from other sites. */}}
+                {{ range complement (slice $.Site) $.Site.Sites }}
+                    {{ $p = $p | lang.Merge (where .RegularPages "Section" $s) }}
+                {{ end }}
+                {{/* Render list. */}}
+                {{ range $p.ByDate.Reverse | first .Params.limit }}
                     <li class="bullet">
                         <a href="{{ .RelPermalink }}" title="{{ .Title }}" hreflang="{{ .Language.Lang }}">{{ .LinkTitle }}</a>
                     </li>
