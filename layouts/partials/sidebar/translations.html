@@ -1,5 +1,5 @@
-{{ range $.Translations }}
-    <a href="/{{ .Language.Lang }}" hreflang="{{ .Language.LanguageCode }}" title="{{ or .Language.LanguageName .Language.Lang }}" class="u-translation-of" rel="alternate">
-        <span class="flag fi fi-{{ index $.Site.Data.langFlags (.Language.Lang) }}"></span>
+{{ range .Site.Languages }}
+    <a href="{{ absURL ( printf "/%s" .Lang ) }}" hreflang="{{ .LanguageCode }}" title="{{ or .LanguageName .Lang }}" class="u-translation-of" rel="alternate">
+        <span class="flag fi fi-{{ index $.Site.Data.langFlags (.Lang) }}"></span>
     </a>
 {{ end }}
