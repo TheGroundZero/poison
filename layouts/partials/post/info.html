@@ -1,13 +1,17 @@
 <h1 class="post-title p-name u-url">
-  <a href="{{ .Permalink }}">{{ .Title }}</a>
+  <a href="{{ .Permalink }}" rel="bookmark">{{ .Title }}</a>
 </h1>
 
 <div class="headline">
   <div>
+    {{ if .IsTranslated }}
+      {{ partial "post/translations.html" . }}
+      <span class="whitespace"> • </span>
+    {{ end }}
     {{ with .Params.author }}
       <span class="h-card p-author">
         {{ with site.Taxonomies.author.Get . }}
-          <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a></span>
+          <a href="{{ .Page.RelPermalink }}" rel="author">{{ .Page.LinkTitle }}</a></span>
         {{ else }}
           {{ . }}
         {{ end }}

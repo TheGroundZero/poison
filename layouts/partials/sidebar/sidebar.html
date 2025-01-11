@@ -5,5 +5,8 @@
         {{ partialCached "sidebar/menu.html" . }}
         {{ partialCached "sidebar/socials.html" . }}
         {{ partialCached "sidebar/copyright.html" . }}
+        {{ if hugo.IsMultilingual }}
+          {{ partialCached "sidebar/translations.html" . }}
+        {{ end }}
   </div>
 </aside>

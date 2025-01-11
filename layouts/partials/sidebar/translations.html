@@ -1,0 +1,5 @@
+{{ range $.Translations }}
+    <a href="/{{ .Language.Lang }}" hreflang="{{ .Language.LanguageCode }}" title="{{ or .Language.LanguageName .Language.Lang }}" class="u-translation-of" rel="alternate">
+        <span class="flag fi fi-{{ index $.Site.Data.langFlags (.Language.Lang) }}"></span>
+    </a>
+{{ end }}
