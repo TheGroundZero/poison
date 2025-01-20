@@ -37,7 +37,7 @@
   {{ range $output_formats }}
     {{ $rel := (or (and (eq "atom" (.Name | lower)) "self") "alternate") }}
     {{ with $output_formats.Get .Name }}
-      {{ printf `<link href=%q rel=%q type=%q title=%q />` .Permalink $rel .MediaType.Type .Name | safeHTML }}
+      {{ printf `<link href=%q rel=%q type=%q title=%q />` .RelPermalink $rel .MediaType.Type .Name | safeHTML }}
     {{ end }}
   {{ end }}
 
@@ -47,7 +47,7 @@
     {{ $langstr := .Language.LanguageName }}
     {{ range $output_formats }}
       {{ with $output_formats.Get .Name }}
-        {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .Permalink .MediaType.Type $lang $langstr .Name | safeHTML }}
+        {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .RelPermalink .MediaType.Type $lang $langstr .Name | safeHTML }}
       {{ end }}
     {{ end }}
   {{ end }}
