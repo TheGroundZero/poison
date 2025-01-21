@@ -12,9 +12,14 @@
     <!-- Meta tags -->
     {{ partial "head/meta.html" . }}
     <!-- Custom head tags -->
-    {{- if templates.Exists "partials/extra-head.html" -}}
-        {{ partial "extra-head.html" . }}
+    {{- if templates.Exists "partials/head/head-extra.html" -}}
+        {{ partialCached "head-extra.html" . }}
     {{- end }}
+    {{- if .IsHome -}}
+        {{- if templates.Exists "partials/head/head-home.html" -}}
+            {{ partialCached "head-home.html" . }}
+        {{- end }}
+    {{- end -}}
     <!-- Styling and scripts -->
     {{ partialCached "head/stylesheets.html" . }}
     {{ partialCached "head/scripts.html" . }}
