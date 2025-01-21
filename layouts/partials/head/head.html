@@ -13,11 +13,11 @@
     {{ partial "head/meta.html" . }}
     <!-- Custom head tags -->
     {{- if templates.Exists "partials/head/head-extra.html" -}}
-        {{ partialCached "head-extra.html" . }}
+        {{ partialCached "head/head-extra.html" . }}
     {{- end }}
     {{- if .IsHome -}}
         {{- if templates.Exists "partials/head/head-home.html" -}}
-            {{ partialCached "head-home.html" . }}
+            {{ partialCached "head/head-home.html" . }}
         {{- end }}
     {{- end -}}
     <!-- Styling and scripts -->
