@@ -37,7 +37,7 @@
   {{- range $output_formats }}
     {{ $rel := (or (and (eq "atom" (.Name | lower)) "self") "alternate") }}
     {{- with $output_formats.Get .Name -}}
-      {{ printf `<link href=%q rel=%q type=%q title=%q />` .RelPermalink $rel .MediaType.Type .Name | safeHTML }}
+      {{ printf `<link href=%q rel=%q type=%q title=%q />` .Permalink $rel .MediaType.Type .Name | safeHTML }}
     {{- end -}}
   {{ end -}}
 
@@ -47,19 +47,22 @@
     {{- $langstr := .Language.LanguageName -}}
     {{- range $output_formats -}}
       {{- with $output_formats.Get .Name }}
-        {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .RelPermalink .MediaType.Type $lang $langstr .Name | safeHTML }}
+        {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .Permalink .MediaType.Type $lang $langstr .Name | safeHTML }}
       {{- end -}}
     {{- end -}}
   {{- end -}}
   
   {{- with .Site.Params.favicon }}
-    <icon>{{ . }}</icon>
+    {{- with resources.Get . }}
+    <icon>{{ .Permalink }}</icon>
+    {{- end -}}
   {{- end -}}
 
   {{- with .Site.Params.brand_image }}
-    <logo>{{ . }}</logo>
-  {{ end -}}
-
+    {{- with resources.Get . }}
+    <logo>{{ .Permalink }}</logo>
+    {{- end -}}
+  {{- end }}
   <updated>{{ now | time.Format "2006-01-02T15:04:05-07:00" }}</updated>
   <id>{{ .Permalink }}</id>
   
@@ -82,13 +85,13 @@
     <entry>
       {{- if .IsTranslated -}}
         <title xml:lang="{{ .Lang }}">{{ .Title | plainify }}</title>
-        <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Lang }}" rel="self" type="text/html" />
+        <link href="{{ .Permalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Lang }}" rel="self" type="text/html" />
         {{- range .Translations }}
-          <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Language.Lang }}" rel="alternate" type="text/html" />
+          <link href="{{ .Permalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Language.Lang }}" rel="alternate" type="text/html" />
         {{ end -}}
       {{- else }}
         <title>{{ .Title | plainify }}</title>
-        <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" rel="self" type="text/html" />
+        <link href="{{ .Permalink }}" title="{{ .LinkTitle }}" rel="self" type="text/html" />
       {{ end -}}
 
       <id>{{ .Permalink }}</id>
@@ -112,7 +115,7 @@
         {{- $series := .Site.GetPage $seriesUrl -}}
         {{- range $series.Pages -}}
             {{- if ne .Title $postTitle -}}
-                <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" rel="related" type="text/html" />
+                <link href="{{ .Permalink }}" title="{{ .LinkTitle }}" rel="related" type="text/html" />
             {{ end -}}
         {{- end -}}
       {{- end -}}
