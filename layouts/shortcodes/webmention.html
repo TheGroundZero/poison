@@ -1,0 +1,44 @@
+<div class="webmention h-entry">
+    {{ $author := lower (or ($.Page.Params.author) ($.Site.Params.author.name)) }}
+    {{ with index $.Site.Data.authors $author }}
+        {{ $name := .name }}
+        <div class="wm-author u-author h-card">
+            {{- with .avatar -}}
+                {{ with resources.Get . }}
+                    {{ with .Resize "40x webp" }}
+                        <img src="{{ .RelPermalink }}" alt="Avatar of {{ $name }}" class="wm-photo u-photo" />
+                    {{ end }}
+                {{ end }}
+            {{- end -}}
+            <a href="{{ $.Site.BaseURL }}" class="wm-name u-url p-name">{{ $name }}</a>
+        </div>
+    {{ end }}
+    {{ if .Get "type" }}
+        {{ $type := .Get "type" }}
+        {{ $href := .Get "href" }}
+        {{ $name := .Get "name" }}
+        <span class="wm-response">
+            <span class="wi wi-{{ $type }}">{{ partial "svg" $type }}</span>
+            {{ if eq $type "reply" }}
+                <a class="u-in-reply-to" href="{{ $href }}" title="In reply to {{ $name }}">{{ $name }}</a>
+            {{ else if eq $type "like" }}
+                <a class="u-like-of" href="{{ $href }}" title="Liking {{ $name }}">{{ $name }}</a>
+            {{ else if eq $type "repost" }}
+                <a class="u-repost-of" href="{{ $href }}" title="Repost of {{ $name }}">{{ $name }}</a>
+            {{ else if eq $type "rsvp" }}
+                {{ $rsvp := .Get "rsvp" }}
+                <data class="p-rsvp" value="{{ $rsvp }}">
+                    <a href="{{ $href }}" title="RSVP to {{ $name }}">{{ $rsvp }}</a>
+                </data>
+            {{ end }}
+        </span>
+    {{ end }}
+    <p class="wm-content e-content">
+        {{- .Inner -}}
+    </p>
+    <p>
+        <a href="{{ $.Page.Permalink }}" class="wm-timestamp u-url">
+            <time class="dt-published" datetime="{{ $.Page.Params.Date | time.Format "2006-01-02T15:04:05Z0700" }}">{{ $.Page.Params.Date | time.Format ":date_medium" }}</time>
+        </a>
+    </p>
+</div>
