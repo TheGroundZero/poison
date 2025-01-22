@@ -20,106 +20,104 @@
   >
 
   <title>
-    {{ $title := .Site.Title }}
-    {{ if not (eq .Title .Site.Title) }}
+    {{- $title := .Site.Title -}}
+    {{- if not (eq .Title .Site.Title) -}}
       {{ with .Title }}
         {{ $title = printf `%s on %s` . $title }}
       {{ end }}
-    {{ end }}
-    {{ $title }}
+    {{- end -}}
+    {{- $title -}}
   </title>
 
-  {{ with .Site.Params.description }}
+  {{- with .Site.Params.description }}
     {{ ( printf `<subtitle type="html"><![CDATA[%s]]></subtitle>` . ) | safeHTML }}
-  {{ end }}
+  {{- end -}}
   
-  {{ $output_formats := .OutputFormats }}
-  {{ range $output_formats }}
+  {{- $output_formats := .OutputFormats -}}
+  {{- range $output_formats }}
     {{ $rel := (or (and (eq "atom" (.Name | lower)) "self") "alternate") }}
-    {{ with $output_formats.Get .Name }}
+    {{- with $output_formats.Get .Name -}}
       {{ printf `<link href=%q rel=%q type=%q title=%q />` .RelPermalink $rel .MediaType.Type .Name | safeHTML }}
-    {{ end }}
-  {{ end }}
+    {{- end -}}
+  {{ end -}}
 
-  {{ range .Translations }}
-    {{ $output_formats := .OutputFormats }}
-    {{ $lang := .Lang }}
-    {{ $langstr := .Language.LanguageName }}
-    {{ range $output_formats }}
-      {{ with $output_formats.Get .Name }}
+  {{- range .Translations -}}
+    {{- $output_formats := .OutputFormats -}}
+    {{- $lang := .Lang -}}
+    {{- $langstr := .Language.LanguageName -}}
+    {{- range $output_formats -}}
+      {{- with $output_formats.Get .Name }}
         {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .RelPermalink .MediaType.Type $lang $langstr .Name | safeHTML }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
   
-  {{ with .Site.Params.favicon }}
+  {{- with .Site.Params.favicon }}
     <icon>{{ . }}</icon>
-  {{ end }}
+  {{- end -}}
 
-  {{ with .Site.Params.brand_image }}
+  {{- with .Site.Params.brand_image }}
     <logo>{{ . }}</logo>
-  {{ end }}
+  {{ end -}}
 
   <updated>{{ now | time.Format "2006-01-02T15:04:05-07:00" }}</updated>
-  
   <id>{{ .Permalink }}</id>
   
-  {{ with .Site.Params.Author }}
+  {{- with .Site.Params.Author }}
     <author>
       <name>{{ .name }}</name>
-      {{ with .email }}
+      {{- with .email }}
         <email>{{ . }}</email>
-      {{ end }}
+      {{- end }}
     </author>
-  {{ end }}
-  
+  {{- end }}
   <generator>Hugo -- gohugo.io</generator>
 
-  {{ with .Site.Params.copyright }}
+  {{- with .Site.Params.copyright }}
     <rights>© {{ .year }} {{- with $.Site.Params.Author.name }} - {{ . }} {{ end }} - {{ .copyright | plainify }}</rights>
-  {{ end }}
+  {{ end -}}
 
-  {{ range $pages }}
-    {{ $page := . }}
+  {{- range $pages -}}
+    {{- $page := . }}
     <entry>
-      {{ if .IsTranslated }}
+      {{- if .IsTranslated -}}
         <title xml:lang="{{ .Lang }}">{{ .Title | plainify }}</title>
         <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Lang }}" rel="self" type="text/html" />
-        {{ range .Translations }}
+        {{- range .Translations }}
           <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" hreflang="{{ .Language.Lang }}" rel="alternate" type="text/html" />
-        {{ end }}
-      {{ else }}
+        {{ end -}}
+      {{- else }}
         <title>{{ .Title | plainify }}</title>
         <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" rel="self" type="text/html" />
-      {{ end }}
+      {{ end -}}
 
       <id>{{ .Permalink }}</id>
 
-      {{ with (or .Params.author .Site.Params.Author.name) }}
+      {{- with (or .Params.author .Site.Params.Author.name) }}
         <author>
           <name>{{ . }}</name>
         </author>
-      {{ end }}
+      {{ end -}}
 
       <published>{{ .Date.Format "2006-01-02T15:04:05-07:00" }}</published>
       <updated>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</updated>
 
-      {{ with .Content }}
+      {{- with .Content }}
         {{ ( printf `<content type="html"><![CDATA[%s]]></content>` ( . | safeHTML | truncate 250 ) ) | safeHTML }}
-      {{ end }}
+      {{ end -}}
 
-      {{ if .Params.series }}
-        {{ $postTitle := .Title }}
-        {{ $seriesUrl := (( printf "series/%s" .Params.series ) | urlize) }}
-        {{ $series := .Site.GetPage $seriesUrl }}
-        {{ range $series.Pages }}
-            {{ if ne .Title $postTitle }}
+      {{- if .Params.series -}}
+        {{- $postTitle := .Title -}}
+        {{- $seriesUrl := (( printf "series/%s" .Params.series ) | urlize) -}}
+        {{- $series := .Site.GetPage $seriesUrl -}}
+        {{- range $series.Pages -}}
+            {{- if ne .Title $postTitle -}}
                 <link href="{{ .RelPermalink }}" title="{{ .LinkTitle }}" rel="related" type="text/html" />
-            {{ end }}
-        {{ end }}
-      {{ end }}
+            {{ end -}}
+        {{- end -}}
+      {{- end -}}
 
     </entry>
-  {{ end }}
+  {{ end -}}
   
 </feed>
