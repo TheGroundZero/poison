@@ -4,59 +4,59 @@
 
 <div class="headline">
   <div>
-    {{ if .IsTranslated }}
-      {{ partial "post/translations.html" . }}
+    {{- if .IsTranslated -}}
+      {{- partial "post/translations.html" . -}}
       <span class="whitespace"> • </span>
-    {{ end }}
-    {{ with .Params.author }}
+    {{- end -}}
+    {{- with .Params.author -}}
       <span class="h-card p-author">
-        {{ with site.Taxonomies.author.Get . }}
+        {{- with site.Taxonomies.author.Get . -}}
           <a href="{{ .Page.RelPermalink }}" rel="author">{{ .Page.LinkTitle }}</a></span>
-        {{ else }}
-          {{ . }}
-        {{ end }}
+        {{- else -}}
+          {{- . -}}
+        {{- end -}}
       </span>
-    {{ end }}
-    {{ $pubdate := .PublishDate }}
-    {{ with .PublishDate }}
+    {{- end -}}
+    {{- $pubdate := .PublishDate -}}
+    {{- with .PublishDate -}}
       <span class="whitespace"> • </span>
       <time datetime="{{ $pubdate | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-published">
-        {{ $pubdate | time.Format ":date_medium" }}
+        {{- $pubdate | time.Format ":date_medium" -}}
       </time>
-      {{ with ($.Lastmod) }}
-        {{ if not (.Equal $pubdate) }}
+      {{- with ($.Lastmod) -}}
+        {{- if gt (.Format "2006-01-02") ($pubdate.Format "2006-01-02") -}}
           <span class="whitespace"> </span>
           <time datetime="{{ . | time.Format "2006-01-02T15:04:05Z0700" }}" class="post-date dt-updated">
-            ({{ . | time.Format ":date_medium" }})
+            ({{- . | time.Format ":date_medium" -}})
           </time>
-        {{ end }}
-      {{ end }}
-    {{ end }}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
     <span class="whitespace"> • </span>
     <span class="reading-time">
-      <span>{{ .ReadingTime }} {{ if gt .ReadingTime 1 }}mins{{ else }}min{{ end }} read</span>
+      <span>{{ .ReadingTime }} {{- if gt .ReadingTime 1 }} mins {{ else }} min {{ end -}} read</span>
     </span>
   </div>
 
-  {{ with .Params.categories }}
+  {{- with .Params.categories -}}
   <ul class="tags">
-    {{ range . }}
+    {{- range . -}}
     <li class="tag-{{ . }}">
       <a class="p-category" href="{{ "categories/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
     </li>
-    {{ end }}
+    {{- end -}}
   </ul>
-  {{ end }}
+  {{- end -}}
 </div>
 
-{{ with .Params.series }}
+{{- with .Params.series -}}
   <p class="seriesname">
     Series: <a class="p-category" href="{{ $.Site.BaseURL }}series/{{ . | urlize }}">{{ . }}</a>
   </p>
-{{ end }}
+{{- end -}}
 
-{{ with .Params.featuredImage }}
+{{- with .Params.featuredImage -}}
   <p>
     <img class="u-photo" src="{{ . }}"><br>
   </p>
-{{ end }}
+{{- end -}}
