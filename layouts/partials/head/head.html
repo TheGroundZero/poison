@@ -14,7 +14,7 @@
     <!-- Custom head tags -->
     {{- if templates.Exists "partials/head/head-extra.html" -}}
         {{ partialCached "head/head-extra.html" . }}
-    {{- end }}
+    {{- end -}}
     {{- if .IsHome -}}
         {{- if templates.Exists "partials/head/head-home.html" -}}
             {{ partialCached "head/head-home.html" . }}

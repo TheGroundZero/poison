@@ -1,18 +1,18 @@
-{{ $opts := dict
+{{- $opts := dict
   "transpiler" "dartsass"
   "vars" (partialCached "head/get-scss-vars.html" .)
-}}
+-}}
 
-{{ with resources.Get "scss/main.scss" }}
-  {{ with . | toCSS $opts }}
-    {{ with slice . | append (sort (resources.Match "css/**.css") "Name") | resources.Concat "css/bundle.css" }}
-      {{ if hugo.IsProduction }}
-        {{ with . | minify | fingerprint }}
+{{- with resources.Get "scss/main.scss" }}
+  {{- with . | toCSS $opts -}}
+    {{- with slice . | append (sort (resources.Match "css/**.css") "Name") | resources.Concat "css/bundle.css" -}}
+      {{- if hugo.IsProduction -}}
+        {{- with . | minify | fingerprint -}}
           <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-        {{ end }}
-      {{ else }}
+        {{- end -}}
+      {{- else -}}
         <link rel="stylesheet" href="{{ .RelPermalink }}">
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ end }}
+      {{- end -}}
+    {{- end }}
+  {{- end }}
+{{- end }}

@@ -1,24 +1,26 @@
 {{/* Personal/custom script for light/dark mode and tabs */}}
-{{ $js := slice
+{{- $js := slice
       (resources.Get "js/light_dark.js")
-      (resources.Get "js/tabs.js") }}
+      (resources.Get "js/tabs.js")
+-}}
 
 {{/* Locally hosted code for KaTeX */}}
-{{ $js = $js | append
+{{- $js = $js | append
       (resources.Get "js/lib/katex.js")
-      (resources.Get "js/lib/auto-render.js") }}
+      (resources.Get "js/lib/auto-render.js")
+-}}
 
 {{/* Personal/custom scripts for KaTeX */}}
-{{ $js = $js | append (resources.Get "js/katex.js") }}
+{{- $js = $js | append (resources.Get "js/katex.js") -}}
 
 {{/* Personal/custom scripts for table of contents */}}
-{{ if not .Site.Params.hideToc }}
-    {{ $js = $js | append (resources.Get "js/toc.js") }}
-{{ end }}
+{{- if not .Site.Params.hideToc -}}
+    {{- $js = $js | append (resources.Get "js/toc.js") -}}
+{{- end -}}
 
 {{/* Personal/custom scripts for codeblocks */}}
-{{ $js = $js | append (resources.Get "js/codeblock.js") }}
+{{- $js = $js | append (resources.Get "js/codeblock.js") -}}
 
-{{ $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint }}
+{{- $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 
 <script defer type="text/javascript" src="{{ $js_bundle.RelPermalink }}" integrity="{{ $js_bundle.Data.Integrity }}"  crossorigin="anonymous"></script>
