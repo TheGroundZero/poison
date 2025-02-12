@@ -93,3 +93,12 @@ p.wm-content {
     stroke-linejoin: round;
     fill: none;
 }
+
+/* Figure */
+figure {
+    display: inline-block;
+}
+
+figcaption.center {
+    text-align: center;
+}
