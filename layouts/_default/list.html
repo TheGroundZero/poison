@@ -1,21 +1,26 @@
 {{ define "main" -}}
-<h1 class="title">{{ .Title }}</h1>
-<ul class="entries">
-    {{ range .Pages.GroupByDate "2006" }}
-        <h2 style="text-align: center;">{{ .Key }}</h2>
-        {{ range .Pages }}
-            <li>
-                <span class="title">
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </span>
-                <span class="published">
-                    <time class="pull-right post-list">{{ or .PublishDate .Date | time.Format "January _2" }}</time>
-                </span>
-            </li>
+<section class="h-feed">
+    <h1 class="title p-name">{{ .Title }}</h1>
+    <ul class="entries">
+        {{ range .Pages.GroupByDate "2006" }}
+            <h2 style="text-align: center;">{{ .Key }}</h2>
+            {{ range .Pages }}
+                <li class="h-entry">
+                    <span class="title">
+                        <a href="{{ .RelPermalink }}" class="u-url p-name">{{ .Title }}</a>
+                    </span>
+                    <span class="published">
+                        <time class="pull-right post-list dt-published" datetime="{{ or .PublishDate .Date | time.Format "2006-01-02T15:04:05Z0700" }}">
+                            {{- or .PublishDate .Date | time.Format "January _2" -}}
+                        </time>
+                    </span>
+                </li>
+            {{ end }}
         {{ end }}
-    {{ end }}
-</ul>
+    </ul>
+</section>
 {{ end }}
+
 {{ define "sidebar" }}
   {{ if and (not .Params.hideToc) (not .Site.Params.hideToc) }}
     {{ partial "table_of_contents.html" . }}
