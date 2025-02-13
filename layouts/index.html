@@ -1,8 +1,9 @@
 {{ define "main" -}}
-<div class="posts">
+<div class="posts h-feed">
     {{ $frontPageTypes := default (slice "posts") .Site.Params.front_page_content }}
     {{ range (.Paginate (where .Site.RegularPages "Type" "in" $frontPageTypes)).Pages }}
-    <article class="post">
+    <a class="u-url" href="/" hidden="from-humans"></a>
+    <article class="post h-entry">
         {{ partial "post/info.html" . }}
         {{ if or (.Site.Params.noSummary) (.Params.noSummary) }}
         {{ .Content }}
