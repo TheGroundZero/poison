@@ -12,6 +12,9 @@
     {{ if or (.Site.Params.remark42) (.Site.Config.Services.Disqus.Shortname) }}
       {{ partial "post/comments.html" . }}
     {{ end }}
+    {{- if templates.Exists "partials/head/head-extra.html" -}}
+      {{ partialCached "post/footer-extra.html" . }}
+    {{- end -}}
   </footer>
 </article>
 {{- end }}
