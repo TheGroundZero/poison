@@ -17,6 +17,20 @@
 <!-- Social media -->
 {{- template "_internal/schema.html" . }}
 {{- template "_internal/twitter_cards.html" . }}
+{{- range where site.Params.social "name" "twitter" }}
+  {{- $handle := (replace .url "https://twitter.com/" "@") }}
+  <meta name="twitter:creator" content="{{ $handle }}" />
+{{- end }}
+{{- if .IsPage }}
+  {{- with (or $.Params.Author $.Site.Params.author.name )}}
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="{{ . }}" />
+  {{- end }}
+  {{- with .ReadingTime }}
+    <meta name="twitter:label2" content="Est. reading time" />
+    <meta name="twitter:data2" content="{{ . }} {{- if gt . 1 }} mins {{ else }} min {{ end -}} read" />
+  {{- end }}
+{{- end }}
 {{- template "_internal/opengraph.html" . }}
 <!-- Description Tags -->
 <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.Description }}{{ else }}{{ if .Params.Description }}{{ .Params.Description }}{{ else }}{{ .Summary | plainify }}{{ end }}{{ end }}" />
