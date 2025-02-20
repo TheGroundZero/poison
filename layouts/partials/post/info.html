@@ -60,7 +60,7 @@
 {{- end -}}
 
 {{- with .Params.featuredImage -}}
-  <p>
-    <img class="u-photo" src="{{ . }}"><br>
+  <p class="featuedImage" hidden="from-humans">
+    <img class="u-photo" src="{{ . }}" />
   </p>
 {{- end -}}
