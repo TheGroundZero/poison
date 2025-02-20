@@ -33,9 +33,13 @@
       {{- end -}}
     {{- end -}}
     <span class="whitespace"> • </span>
+    {{- with .ReadingTime }}
     <span class="reading-time">
-      <span>{{ .ReadingTime }} {{- if gt .ReadingTime 1 }} mins {{ else }} min {{ end -}} read</span>
+      <data class="p-duration" value="PT{{ . }}M">
+        {{ . }} {{- if gt . 1 }} mins {{ else }} min {{ end -}} read
+      </data>
     </span>
+    {{- end }}
   </div>
 
   {{- with .Params.categories -}}
