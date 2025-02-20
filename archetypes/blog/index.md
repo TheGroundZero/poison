@@ -13,6 +13,7 @@ series: ""
 params:
   images:
     - cover.png
+  featuredImage: cover.png
 hideToc: false
 draft: true
 ---
