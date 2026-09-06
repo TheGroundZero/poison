@@ -1,0 +1,35 @@
+.ai-attribution {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ai-attribution__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+
+    svg {
+        width: 1.5em;
+        height: 1.5em;
+    }
+}
+
+body {
+    .ai-attribution__icon--light {
+        display: inline-flex;
+    }
+
+    .ai-attribution__icon--dark {
+        display: none;
+    }
+}
+
+body.dark-theme {
+    .ai-attribution__icon--light {
+        display: none;
+    }
+
+    .ai-attribution__icon--dark {
+        display: inline-flex;
+    }
+}

@@ -11,33 +11,3 @@
     This article has (partially) been written by AI. A human has reviewed and/or modified the output.
   </span>
 </span>
-
-{{- if not ($.Page.Scratch.Get "ai-attribution-css") -}}
-  <style>
-    .ai-attribution {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .ai-attribution__icon {
-      display: inline-flex;
-      flex: 0 0 auto;
-    }
-
-    .ai-attribution__icon--dark {
-      display: none;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .ai-attribution__icon--light {
-        display: none;
-      }
-
-      .ai-attribution__icon--dark {
-        display: inline-flex;
-      }
-    }
-  </style>
-  {{- $.Page.Scratch.Set "ai-attribution-css" true -}}
-{{- end -}}
