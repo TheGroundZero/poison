@@ -5,6 +5,7 @@
   </header>
   <main class="e-content">
     {{ .Content }}
+    {{- partial "post/ai-attribution.html" . (index .Params "ai-disclosure") }}
   </main>
   <hr>
   <footer>
