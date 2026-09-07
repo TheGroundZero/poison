@@ -22,7 +22,7 @@
                 {{/* Get pages from current site. */}}
                 {{ $p := where $.Site.RegularPages "Section" $s }}
                 {{/* Add pages from other sites. */}}
-                {{ range complement (slice $.Site) $.Site.Sites }}
+                {{ range complement (slice $.Site) hugo.Sites }}
                     {{ $p = $p | lang.Merge (where .RegularPages "Section" $s) }}
                 {{ end }}
                 {{/* Render list. */}}

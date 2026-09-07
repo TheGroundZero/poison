@@ -9,7 +9,7 @@
 <meta name="url" content="{{ .Permalink }}" itemprop="url" />
 {{- with .Translations }}
   {{- range . }}
-    <link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Language.LanguageCode }}" />
+    <link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Language.Locale }}" />
   {{ end -}}
 {{ end -}}
 <!-- Icons -->

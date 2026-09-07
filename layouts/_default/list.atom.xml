@@ -45,7 +45,7 @@
   {{- range .Translations -}}
     {{- $output_formats := .OutputFormats -}}
     {{- $lang := .Lang -}}
-    {{- $langstr := .Language.LanguageName -}}
+    {{- $langstr := .Language.Label -}}
     {{- range $output_formats -}}
       {{- with $output_formats.Get .Name }}
   {{ printf `<link href=%q rel="alternate" type=%q hreflang=%q title="[%s] %s" />` .Permalink .MediaType.Type $lang $langstr .Name | safeHTML }}

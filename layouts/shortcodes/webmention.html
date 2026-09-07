@@ -1,6 +1,6 @@
 <div class="webmention h-entry">
     {{ $author := lower (or ($.Page.Params.author) ($.Site.Params.author.name)) }}
-    {{ with index $.Site.Data.authors $author }}
+    {{ with index hugo.Data.authors $author }}
         {{ $name := .name }}
         <div class="wm-author u-author h-card">
             {{- with .avatar -}}
