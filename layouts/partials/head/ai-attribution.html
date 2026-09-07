@@ -1,0 +1,11 @@
+{{ with index .Params "ai-disclosure" }}
+<meta name="AI-Disclosure"
+  mode="{{ .mode }}"
+  {{- with .model }} model="{{ . }}"{{ end }}
+  {{- with .provider }} provider="{{ . }}"{{ end }}
+  {{- with (index . "reviewed-by") }} reviewed-by="{{ . }}"{{ end }}
+  {{- with .date }} date="{{ . }}"{{ end }}
+/>
+{{- end }}
+
+{{- /* Based off of https://www.ietf.org/archive/id/draft-abaris-aicdh-00.html */ -}}
