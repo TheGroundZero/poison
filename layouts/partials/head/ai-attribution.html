@@ -3,7 +3,7 @@
   mode="{{ .mode }}"
   {{- with .model }} model="{{ . }}"{{ end }}
   {{- with .provider }} provider="{{ . }}"{{ end }}
-  {{- with (index . "reviewed-by") }} reviewed-by="{{ . }}"{{ end }}
+  {{- with (index . "reviewed-by") }} reviewed-by="{{ . }}"{{ else }} reviewed-by="none"{{ end }}
   {{- with .date }} date="{{ . }}"{{ end }}
 />
 {{- end }}
