@@ -21,6 +21,9 @@
 {{/* Personal/custom scripts for codeblocks */}}
 {{- $js = $js | append (resources.Get "js/codeblock.js") -}}
 
+{{/* Display webmention counts */}}
+{{- $js = $js | append (resources.Get "js/webmention-count.js") -}}
+
 {{- $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 
 <script defer type="text/javascript" src="{{ $js_bundle.RelPermalink }}" integrity="{{ $js_bundle.Data.Integrity }}"  crossorigin="anonymous"></script>
