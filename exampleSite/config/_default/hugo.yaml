@@ -4,7 +4,7 @@ title: Sequr
 defaultContentLanguage: en
 locale: en-US
 timeZone: Europe/Brussels
-theme: "github.com/TheGroundZero/poison"
+theme: poison
 pluralizelisttitles: false
 
 archetypeDir: archetypes

@@ -1,42 +1,5 @@
-<div class="webmention-stats" data-webmention-target="{{ .Permalink }}" aria-live="polite" >
+<div class="webmention-stats" data-webmention-target="{{ .Permalink }}" aria-live="polite">
+  <span class="webmention-logo">{{- partial "svg" "webmention" -}}</span>
   <span class="webmention-total">Checking webmentions…</span>
   <span class="webmention-types"></span>
 </div>
-
-<script>
-(function () {
-  const container = document.querySelector('.webmention-stats');
-  if (!container) return;
-
-  const target = container.dataset.webmentionTarget;
-  const total = container.querySelector('.webmention-total');
-  const types = container.querySelector('.webmention-types');
-
-  const apiUrl = new URL('https://webmention.io/api/count');
-  apiUrl.searchParams.set('target', target);
-
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(({ count = 0, type = {} }) => {
-      total.textContent =
-        `${count} webmention${count === 1 ? '' : 's'}`;
-
-      const breakdown = Object.entries(type)
-        .filter(([, value]) => value > 0)
-        .map(([name, value]) => `${value} ${name}`)
-        .join(' · ');
-
-      types.textContent = breakdown ? ` — ${breakdown}` : '';
-    })
-    .catch(error => {
-      console.warn('Webmention count unavailable:', error);
-      total.textContent = '';
-      types.textContent = '';
-    });
-})();
-</script>
