@@ -1,5 +1,5 @@
 .ai-attribution {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     padding-bottom: 2em;
@@ -13,6 +13,10 @@
         width: 1.5em;
         height: 1.5em;
     }
+}
+
+.ai-attribution__text {
+    display: inline-flex;
 }
 
 body {
