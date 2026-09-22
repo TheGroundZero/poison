@@ -45,6 +45,7 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
       - name: Commit and push linting fixes
         # Run only on:
         # - Pull requests
