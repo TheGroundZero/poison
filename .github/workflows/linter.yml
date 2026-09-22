@@ -13,37 +13,43 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      # contents permission to clone the repository
-      contents: read
+      contents: write
       packages: read
-      # issues and pull-requests permissions to write results as pull
-      # request comments. Omit them if you don't need summary comments
       issues: write
       pull-requests: write
-      # To report GitHub Actions status checks. Omit if you don't need
-      # to update commit status
       statuses: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
           fetch-depth: 0
           persist-credentials: false
       
       - name: Load super-linter configuration
-        # Use grep inverse matching to exclude eventual comments in the .env file
-        # because the GitHub Actions command to set environment variables doesn't
-        # support comments.
         # Ref: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-environment-variable
         run: grep -v '^#' .github/super-linter.env >> "$GITHUB_ENV"
+        
+      - name: Cache super-linter image
+        id: super-linter-cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/super-linter.tar
+          key: super-linter-slim-v8-${{ runner.os }}
+
+      - name: Load cached super-linter image
+        if: steps.super-linter-cache.outputs.cache-hit == 'true'
+        run: docker load --input /tmp/super-linter.tar
+
+      - name: Download and cache super-linter image
+        if: steps.super-linter-cache.outputs.cache-hit != 'true'
+        run: |
+          docker pull super-linter/super-linter:slim-v8
+          docker save --output /tmp/super-linter.tar super-linter/super-linter:slim-v8
 
       - name: Super-linter
         uses: super-linter/super-linter/slim@v8
         env:
-          # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
       - name: Commit and push linting fixes
@@ -51,11 +57,14 @@ jobs:
         # - Pull requests
         # - Not on the default branch
         if: >
+          always() &&
           github.event_name == 'pull_request' &&
-          github.ref_name != github.event.repository.default_branch
+          github.ref_name != github.event.repository.default_branch &&
+          github.event.pull_request.head.repo.full_name == github.repository
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
           commit_message: "chore: fix linting issues"
           commit_user_name: super-linter
           commit_user_email: super-linter@super-linter.dev
+          push_options: --force-with-lease
