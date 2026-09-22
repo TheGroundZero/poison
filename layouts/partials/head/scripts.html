@@ -24,6 +24,9 @@
 {{/* Display webmention counts */}}
 {{- $js = $js | append (resources.Get "js/webmention-count.js") -}}
 
+{{/* Display webmention comments */}}
+{{- $js = $js | append (resources.Get "js/webmention-comments.js") -}}
+
 {{- $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 
 <script defer type="text/javascript" src="{{ $js_bundle.RelPermalink }}" integrity="{{ $js_bundle.Data.Integrity }}"  crossorigin="anonymous"></script>

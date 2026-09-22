@@ -17,3 +17,45 @@
 .webmention-total {
     display: inline-flex;
 }
+
+.webmention-comments {
+    margin-top: 2rem;
+}
+
+.webmention-comments h2 {
+    margin-bottom: 1rem;
+}
+
+.webmention-comment {
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    border: 1px dashed var(--table-border-color);
+}
+
+.webmention-comment__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.webmention-comment__photo {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.webmention-comment__author {
+    font-weight: bold;
+}
+
+.webmention-comment__date,
+.webmention-comment__source {
+    font-size: 0.85em;
+}
+
+.webmention-comment__content {
+    margin: 0.75rem 0;
+    white-space: pre-wrap;
+}
