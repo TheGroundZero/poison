@@ -21,11 +21,8 @@
 {{/* Personal/custom scripts for codeblocks */}}
 {{- $js = $js | append (resources.Get "js/codeblock.js") -}}
 
-{{/* Display webmention counts */}}
-{{- $js = $js | append (resources.Get "js/webmention-count.js") -}}
-
-{{/* Display webmention comments */}}
-{{- $js = $js | append (resources.Get "js/webmention-comments.js") -}}
+{{/* Display webmention counts and grouped lists */}}
+{{- $js = $js | append (resources.Get "js/webmentions.js") -}}
 
 {{- $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 
