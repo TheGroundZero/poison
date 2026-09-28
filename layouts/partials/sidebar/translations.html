@@ -1,5 +1,16 @@
-{{ range .Site.Languages }}
-    <a href="{{ absURL ( printf "/%s" .Lang ) }}" hreflang="{{ .Locale }}" title="{{ or .Label .Lang }}" class="u-translation-of" rel="alternate">
-        <span class="flag fi fi-{{ index hugo.Data.langFlags (.Lang) }}"></span>
-    </a>
+{{ with .Rotate "language" }}
+      {{ range . }}
+        <a href="{{ .Permalink }}"
+           hreflang="{{ .Site.Language.Locale }}"
+           title="{{ .Site.Language.Label }}"
+           {{ if eq .Site.Language $.Site.Language }}
+           class="u-translation-of active"
+           {{ else }}
+           class="u-translation-of"
+           rel="alternate"
+           {{ end }}
+        >
+            <span class="flag fi fi-{{ index hugo.Data.langFlags (.Site.Language.Name) }}"></span>
+        </a>
+      {{ end }}
 {{ end }}
