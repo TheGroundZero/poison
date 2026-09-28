@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!total) return;
 
     /* for testing use https://webmention.io/api/example/count */
-    const apiUrl = new URL('https://webmention.io/api/example/count');
+    const apiUrl = new URL('https://webmention.io/api/count');
     apiUrl.searchParams.set('target', target);
 
     fetchJson(apiUrl)
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fallbackTemplate = container.querySelector('.webmention-avatar-fallback');
 
     /* for testing use https://webmention.io/api/example/mentions.jf2 */
-    const apiUrl = new URL('https://webmention.io/api/example/mentions.jf2');
+    const apiUrl = new URL('https://webmention.io/api/mentions.jf2');
     apiUrl.searchParams.set('target', target);
     apiUrl.searchParams.set('per-page', '100');
 
