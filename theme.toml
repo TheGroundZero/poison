@@ -10,7 +10,7 @@ homepage = "https://github.com/TheGroundZero/poison"
 demosite = "https://sequr.be"
 
 tags = ["blog", "personal", "dark", "dark-mode", "light", "minimal"]
-features = ["blog", "katex", "table-of-contents", "tabs", "dark-mode", "series"]
+features = ["blog", "katex", "table-of-contents", "tabs", "dark-mode", "series", "webmention"]
 
 [author]
     name = "TheGroundZero"
