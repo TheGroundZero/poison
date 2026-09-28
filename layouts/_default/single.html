@@ -9,12 +9,10 @@
   <hr>
   <footer>
     {{- partial "post/ai-attribution.html" . (index .Params "ai-disclosure") }}
-    {{- partial "post/webmention-counts.html" . }}
-    {{- partial "post/webmention-comments.html" . }}
-    {{ partial "post/navigation.html" . }}
-    {{ if or (.Site.Params.remark42) (.Site.Config.Services.Disqus.Shortname) }}
-      {{ partial "post/comments.html" . }}
+    {{ if .Site.Params.webmentions }}
+      {{ partial "post/webmentions.html" . }}
     {{ end }}
+    {{ partial "post/navigation.html" . }}
     {{- if templates.Exists "partials/head/head-extra.html" -}}
       {{ partialCached "post/footer-extra.html" . }}
     {{- end -}}

@@ -1,0 +1,29 @@
+<section class="webmentions" data-webmention-target="{{ .Permalink }}" aria-labelledby="webmentions-title" aria-live="polite">
+  <h2 id="webmentions-title">Webmentions</h2>
+
+  <div class="webmention-stats">
+    <span class="webmention-stats-total">Checking webmentions…</span>
+  </div>
+
+  {{/* One list per wm-property; JS fills them and unhides those with entries. */}}
+  {{- $groups := slice
+        (dict "property" "in-reply-to" "icon" "wm-reply"    "label" "Replies"   "mf2" "p-comment")
+        (dict "property" "like-of"     "icon" "wm-like"     "label" "Likes"     "mf2" "p-like")
+        (dict "property" "repost-of"   "icon" "wm-repost"   "label" "Reposts"   "mf2" "p-repost")
+        (dict "property" "bookmark-of" "icon" "wm-bookmark" "label" "Bookmarks" "mf2" "p-bookmark")
+        (dict "property" "mention-of"  "icon" "wm-mention"  "label" "Mentions"  "mf2" "p-mention")
+        (dict "property" "rsvp"        "icon" "wm-rsvp"     "label" "RSVPs"     "mf2" "p-rsvp")
+  -}}
+  <div class="webmention-lists">
+    {{- range $groups }}
+    <ul class="webmention-list" data-wm-property="{{ .property }}" data-wm-class="{{ .mf2 }}" aria-label="{{ .label }}" hidden>
+      <li class="webmention-group" title="{{ .label }}">
+        {{- partial "svg" .icon -}}
+        <span class="visually-hidden">{{ .label }}</span>
+      </li>
+    </ul>
+    {{- end }}
+  </div>
+
+  <template class="webmention-avatar-fallback">{{- partial "svg" "wm-account" -}}</template>
+</section>
